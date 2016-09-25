@@ -8,9 +8,7 @@ Created on Sat Sep 24 21:16:45 2016
 import nltk
 from collections import defaultdict
 
-#filename = "compliments.txt"
-#filename = "NYTClinton.txt"
-filename = "meanGirls.txt"
+filename = "yellowWall.txt"
 # files retrieved from Bing Liu's opinion lexicon
 pos_words = "pos-words.txt"
 neg_words ="neg-words.txt"
@@ -119,12 +117,12 @@ def calcSentiment(wordList, pos, neg):
 nums = calcSentiment(wordList, pos, neg)
     
 def result(nums):
-    if nums[1] >= 0.30:
-        print("Your comments are mostly negative.", round(nums[1] * 100,2), "percent, to be exact. Consider lightening your tone.")
+    if nums[1] >= 30:
+        print("Your comments are mostly negative", round(nums[1] * 100,2), "percent, to be exact. Consider lightening your tone.")
     else:
         print("Your comments are", round(nums[1] * 100,2), "negative. Not too bad!")
-        if nums[0] >= 0.40:
-            print("In fact, they're extremely uplifting!",round(nums[0] * 100,2), "positive!")
+        if nums[0] >= 40:
+            print("In fact, there're extremely uplifting!")
         
 
                 
