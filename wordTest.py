@@ -6,7 +6,6 @@ Created on Sat Sep 24 21:16:45 2016
 """
 
 import nltk
-import sys
 from collections import defaultdict
 
 filename = "yellowWall.txt"
@@ -57,17 +56,21 @@ def positive(wordList, pos_words):
             if len(item) > 2:
                 wordList.append(item)
     return wordList
-    
+      
 def negative(wordList, neg_words):
-    pos = open(pos_words, "r")
+    #neg = ascii(neg)
+    neg = open(neg_words, "r")
     # tokenize each word in file
     text = []
-    for line in pos:
+    #neg = ascii(neg)
+   # print(neg)
+    for line in neg:
+        #line = ascii(line)
         # avoid issues with ASCII
-        #line = line.decode("utf-8")
         if len(line) > 1:
             line.rstrip('\n').split()
             text.append(nltk.word_tokenize(line))
+        
     wordList = []
     for line in text:
         # print each individual word in the file
@@ -99,8 +102,29 @@ def calcSentiment(wordList, pos, neg):
                 neutralWords[item] = 0
             else:
                 neutralWords[item] += 1
+        
+    pos_Sum = sum(posWords.values())
+    neg_Sum = sum(negWords.values())
+    neutral_Sum = sum(neutralWords.values())
     
+    sumAll = pos_Sum + abs(neg_Sum) + neutral_Sum
+    posNum = pos_Sum / sumAll
+    negNum = abs(neg_Sum) /sumAll
+    neutralNum = neutral_Sum / sumAll 
     
+    return (posNum, negNum)
+    
+nums = calcSentiment(wordList, pos, neg)
+    
+def result(nums):
+    if nums[1] >= 30:
+        print("Your comments are mostly negative", round(nums[1] * 100,2), "percent, to be exact. Consider lightening your tone.")
+    else:
+        print("Your comments are", round(nums[1] * 100,2), "negative. Not too bad!")
+        if nums[0] >= 40:
+            print("In fact, there're extremely uplifting!")
+        
+
                 
                 
                 
